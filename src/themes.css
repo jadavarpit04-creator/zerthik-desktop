@@ -1,0 +1,597 @@
+/* ============================================================================
+   Zerthik themes — Transparent (glass) · Black
+   ----------------------------------------------------------------------------
+   HOW THIS WORKS (please keep it this way):
+   • Every component rule (section 2) reads CSS variables only —
+     no hard-coded colours — so a theme is nothing but its token table.
+   • Section 1 is the token table: one block of colour values per theme.
+     To re-skin, edit tokens, not rules.
+   • `--th-flip` is the ink-direction switch ("255, 255, 255" on Black),
+     so `rgba(var(--th-flip), .08)` always means "8% ink tint".
+   • Transparent (the default) is the original glass look: it mostly uses the
+     base styles in styles.css / focused-layout.css plus section 4 below.
+   • Section 3 is a SHORT, explicit list of things that cannot be a colour
+     token (e.g. the white logo turning black needs an image filter).
+   ============================================================================ */
+
+/* ---------- 0. Theme-picker dots (same in every theme) ---------- */
+.theme-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 7px;
+  vertical-align: -1px;
+  border: 1px solid rgba(140, 140, 150, .55);
+}
+/* The transparent option's icon is itself see-through: a glass bead. */
+.theme-dot.dot-transparent {
+  background: linear-gradient(135deg, rgba(255,255,255,.65), rgba(255,255,255,.10) 55%, rgba(150,150,170,.22));
+  -webkit-backdrop-filter: blur(2px) saturate(140%);
+  backdrop-filter: blur(2px) saturate(140%);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,.65), inset 0 -1px 1px rgba(120,120,140,.18);
+}
+.theme-dot.dot-black { background: #000; }
+
+/* ============================================================================
+   1. TOKEN TABLE — colours only.
+   ============================================================================ */
+
+.desktop-scene.theme-black {
+  /* core palette */
+  --panel: #0a0a0c;
+  --panel-strong: #101013;
+  --panel-soft: rgba(255, 255, 255, .055);
+  --panel-softer: rgba(255, 255, 255, .035);
+  --line: rgba(255, 255, 255, .085);
+  --line-strong: rgba(255, 255, 255, .14);
+  --text: #f5f3fa;
+  --muted: #aaa5b5;
+  --faint: #756f83;
+  --violet: #8b5cf6;
+  --violet-bright: #a78bfa;
+  --violet-soft: rgba(139, 92, 246, .16);
+  /* icon tiles: black tile, white glyph */
+  --marketing-icon-tile: #050505;
+  --marketing-icon-border: rgba(255, 255, 255, .16);
+  --marketing-icon-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 8px 18px rgba(0,0,0,.34);
+  /* theme tokens */
+  --th-flip: 255, 255, 255;              /* "ink" direction: white tints */
+  --th-paper-rgb: 0, 0, 0;               /* "paper" direction: black tints */
+  --th-scene: #000;
+  --th-grid-opacity: .05;
+  --th-body: #000;
+  --th-window: linear-gradient(180deg, #101013, #060607);
+  --th-window-border: rgba(255, 255, 255, .10);
+  --th-window-shadow: 0 30px 90px rgba(0,0,0,.58), 0 4px 24px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.13);
+  --th-window-inner: inset 0 0 0 1px rgba(139,92,246,.045), inset 0 -40px 80px rgba(0,0,0,.16);
+  --th-pop: linear-gradient(180deg, #101013, #070708);
+  --th-pop-border: rgba(255, 255, 255, .12);
+  --th-pop-shadow: 0 24px 70px rgba(0,0,0,.72), inset 0 1px 0 rgba(255,255,255,.08);
+  --th-card: #101013;
+  --th-card-border: rgba(255, 255, 255, .10);
+  --th-card-shadow: 0 18px 44px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.08);
+  --th-tile-ink: #ffffff;
+  --th-kbd-bg: rgba(255, 255, 255, .07);
+  --th-kbd-ink: #d8d4e4;
+  --th-kbd-border: rgba(255, 255, 255, .13);
+  --th-kbd-bottom: rgba(255, 255, 255, .07);
+  --th-seg-active: rgba(255, 255, 255, .14);
+  --th-toggle-off: rgba(255, 255, 255, .16);
+  --th-danger: #fb7185;
+  --th-success: #6ee7b7;
+  --th-cta-bg: #f5f5f7;
+  --th-cta-ink: #17171b;
+  --th-code-border: rgba(255, 255, 255, .14);
+}
+
+/* ============================================================================
+   2. SHARED RULES — one code path, colours from tokens only.
+      Every colour below comes from the tokens above. Nothing hard-coded
+      except shadows (shadows are dark in every theme) and pure constants.
+   ============================================================================ */
+.desktop-scene.theme-black { color: var(--text); }
+
+/* --- 2.1 Scene & window --- */
+.desktop-scene.theme-black:not(.embed-mode):not(.tauri-mode) {
+  background: var(--th-scene);
+}
+.desktop-scene.theme-black::before {
+  opacity: var(--th-grid-opacity);
+  background-image:
+    linear-gradient(rgba(var(--th-flip), .035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--th-flip), .035) 1px, transparent 1px);
+}
+.desktop-scene.theme-black .desktop-glow { display: none; }
+.desktop-scene.theme-black .app-window {
+  background: var(--th-window);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-color: var(--th-window-border);
+  box-shadow: var(--th-window-shadow);
+  color: var(--text);
+}
+.desktop-scene.theme-black .app-window::after { box-shadow: var(--th-window-inner); }
+.desktop-scene.theme-black .desktop-topbar {
+  background: rgba(var(--th-paper-rgb), .55);
+  border-color: rgba(var(--th-flip), .08);
+  color: var(--muted);
+}
+.desktop-scene.theme-black .desktop-hint { color: var(--muted); }
+.desktop-scene.theme-black *::-webkit-scrollbar-thumb { background: rgba(var(--th-flip), .2); border: 2px solid transparent; background-clip: padding-box; }
+.desktop-scene.theme-black *::-webkit-scrollbar-thumb:hover { background: rgba(var(--th-flip), .32); border: 2px solid transparent; background-clip: padding-box; }
+
+/* --- 2.2 Text colours (all from --text / --muted / --faint) --- */
+.desktop-scene.theme-black h1,
+.desktop-scene.theme-black h2,
+.desktop-scene.theme-black h3 { color: var(--text); }
+.desktop-scene.theme-black textarea,
+.desktop-scene.theme-black input { color: var(--text); }
+.desktop-scene.theme-black .brand-lockup,
+.desktop-scene.theme-black .brand-plan,
+.desktop-scene.theme-black .row-title,
+.desktop-scene.theme-black .setting-title,
+.desktop-scene.theme-black .hotkey-chip,
+.desktop-scene.theme-black .footer-menu-button,
+.desktop-scene.theme-black .footer-action,
+.desktop-scene.theme-black .action-row,
+.desktop-scene.theme-black .action-panel-title,
+.desktop-scene.theme-black .panel-actions button,
+.desktop-scene.theme-black .premium-select-check,
+.desktop-scene.theme-black .onboarding-mini-row,
+.desktop-scene.theme-black .mcp-add-head strong,
+.desktop-scene.theme-black .api-key,
+.desktop-scene.theme-black .ghost-button,
+.desktop-scene.theme-black .onboarding-brand,
+.desktop-scene.theme-black .onboarding-signin-link,
+.desktop-scene.theme-black .trial-badge { color: var(--text); }
+.desktop-scene.theme-black .brand-hotkey,
+.desktop-scene.theme-black .context-ready,
+.desktop-scene.theme-black .palette-context-chip,
+.desktop-scene.theme-black .palette-lane,
+.desktop-scene.theme-black .dock-status,
+.desktop-scene.theme-black .ask-ai,
+.desktop-scene.theme-black .settings-heading,
+.desktop-scene.theme-black .settings-sidebar nav button,
+.desktop-scene.theme-black .control-nav nav button,
+.desktop-scene.theme-black .back-to-app,
+.desktop-scene.theme-black .back-button,
+.desktop-scene.theme-black .icon-button,
+.desktop-scene.theme-black .window-controls button,
+.desktop-scene.theme-black .history-buttons button,
+.desktop-scene.theme-black .output-status,
+.desktop-scene.theme-black .panel-context,
+.desktop-scene.theme-black .premium-select-option,
+.desktop-scene.theme-black .rich-copy small,
+.desktop-scene.theme-black .row-type,
+.desktop-scene.theme-black .recipe-builder-header p,
+.desktop-scene.theme-black .shortcut-form label,
+.desktop-scene.theme-black .mcp-add-form label,
+.desktop-scene.theme-black .segmented button,
+.desktop-scene.theme-black .info-card,
+.desktop-scene.theme-black .onboarding-mini-row span,
+.desktop-scene.theme-black .onboarding-mini-chips span,
+.desktop-scene.theme-black .onboarding-points span,
+.desktop-scene.theme-black .onboarding-feature-grid span,
+.desktop-scene.theme-black .practice-card label,
+.desktop-scene.theme-black .practice-chips span,
+.desktop-scene.theme-black .context-toggle,
+.desktop-scene.theme-black .alias-chip,
+.desktop-scene.theme-black .hotkey-tile span,
+.desktop-scene.theme-black .browser-bar,
+.desktop-scene.theme-black .onboarding-apps-card > span { color: var(--muted); }
+.desktop-scene.theme-black .palette-context-note,
+.desktop-scene.theme-black .palette-count,
+.desktop-scene.theme-black .section-label,
+.desktop-scene.theme-black .studio-kicker,
+.desktop-scene.theme-black .lane-note,
+.desktop-scene.theme-black .action-search,
+.desktop-scene.theme-black .action-section,
+.desktop-scene.theme-black .recipe-builder-header span,
+.desktop-scene.theme-black .mcp-add-head small,
+.desktop-scene.theme-black .onboarding-step-label,
+.desktop-scene.theme-black .onboarding-eyebrow,
+.desktop-scene.theme-black .onboarding-mini-search,
+.desktop-scene.theme-black .search-leading { color: var(--faint); }
+.desktop-scene.theme-black .action-search input { color: var(--text); }
+.desktop-scene.theme-black .action-search input::placeholder { color: var(--faint); }
+.desktop-scene.theme-black .settings-topbar,
+.desktop-scene.theme-black .control-topbar,
+.desktop-scene.theme-black .settings-topbar span,
+.desktop-scene.theme-black .control-topbar span { color: var(--text); }
+.desktop-scene.theme-black .app-window.onboarding p { color: var(--muted); }
+.desktop-scene.theme-black .app-window.onboarding strong { color: var(--text); }
+.desktop-scene.theme-black .app-window.onboarding small { color: var(--faint); }
+.desktop-scene.theme-black .app-window .action-row.danger { color: var(--th-danger) !important; }
+/* legacy light-text locks, re-pointed at the theme tokens */
+.desktop-scene.theme-black .app-window .info-card p { color: var(--muted) !important; }
+.desktop-scene.theme-black .app-window .info-card strong { color: var(--text) !important; }
+.desktop-scene.theme-black .app-window .context-ready { color: var(--muted) !important; }
+.desktop-scene.theme-black .app-window .context-toggle.enabled { color: var(--text) !important; }
+.desktop-scene.theme-black .app-window .output-status { color: var(--muted) !important; }
+.desktop-scene.theme-black .app-window .rich-copy strong { color: var(--text) !important; }
+.desktop-scene.theme-black .app-window .add-connection { color: var(--text) !important; }
+.desktop-scene.theme-black .app-window .premium-select-value { color: var(--text) !important; }
+.desktop-scene.theme-black .app-window .practice-card label span { color: var(--text) !important; }
+.desktop-scene.theme-black .app-window .billing-card p { color: var(--muted) !important; }
+.desktop-scene.theme-black .app-window .billing-card > div > span { color: var(--faint) !important; }
+.desktop-scene.theme-black .app-window .billing-card .trial-badge { color: var(--text) !important; }
+.desktop-scene.theme-black .app-window .favorite-star,
+.desktop-scene.theme-black .app-window .detail-kicker,
+.desktop-scene.theme-black .app-window .loading-label,
+.desktop-scene.theme-black .app-window .assistant-label,
+.desktop-scene.theme-black .app-window .info-card { color: var(--muted) !important; }
+
+/* --- 2.3 Icons: lucide glyphs follow text colour; tiles flip via tokens --- */
+.desktop-scene.theme-black .app-window svg.lucide,
+.desktop-scene.theme-black .desktop-topbar svg.lucide,
+.desktop-scene.theme-black .desktop-hint svg.lucide {
+  color: inherit !important;
+  stroke: currentColor !important;
+}
+.desktop-scene.theme-black .app-window .instruction-box > svg.lucide { color: var(--faint) !important; }
+.desktop-scene.theme-black .app-window .row-icon,
+.desktop-scene.theme-black .app-window .detail-icon,
+.desktop-scene.theme-black .app-window .snippet-icon,
+.desktop-scene.theme-black .app-window .store-avatar,
+.desktop-scene.theme-black .app-window .account-avatar,
+.desktop-scene.theme-black .app-window .compact-favorites button {
+  color: var(--th-tile-ink) !important;
+  background: var(--marketing-icon-tile) !important;
+  border-color: var(--marketing-icon-border) !important;
+  box-shadow: var(--marketing-icon-shadow) !important;
+}
+/* monochrome brand glyphs + monogram initials use the same tile ink
+   (multi-colour logos keep their own colours — their paths carry fills) */
+.desktop-scene.theme-black .app-window .brand-logo-svg,
+.desktop-scene.theme-black .app-window .brand-logo-svg svg {
+  color: var(--th-tile-ink) !important;
+  fill: var(--th-tile-ink) !important;
+}
+.desktop-scene.theme-black .app-window .brand-logo-monogram { color: var(--th-tile-ink) !important; }
+.desktop-scene.theme-black .browser-signin-card .brand-github svg path { fill: var(--th-tile-ink) !important; }
+
+/* --- 2.4 Surfaces: bars, rows, chips, toggles, boxes, cards --- */
+.desktop-scene.theme-black .palette-context-strip,
+.desktop-scene.theme-black .launcher-footer.execution-dock,
+.desktop-scene.theme-black .onboarding-footer,
+.desktop-scene.theme-black .action-panel-footer {
+  background: rgba(var(--th-flip), .045);
+  border-color: rgba(var(--th-flip), .08);
+}
+.desktop-scene.theme-black .app-window .context-strip {
+  background: rgba(var(--th-flip), .04) !important;
+  border-color: rgba(var(--th-flip), .08) !important;
+}
+.desktop-scene.theme-black .palette-home .command-row:hover {
+  background: rgba(var(--th-flip), .045);
+  border-color: rgba(var(--th-flip), .07);
+}
+.desktop-scene.theme-black .palette-home .command-row.selected,
+.desktop-scene.theme-black .library-board .command-row.selected {
+  background: linear-gradient(180deg, rgba(var(--th-flip), .09), rgba(var(--th-flip), .06));
+  border-color: rgba(var(--th-flip), .14);
+  box-shadow: 0 8px 22px rgba(0,0,0,.18), inset 0 1px 0 rgba(var(--th-flip), .08);
+}
+.desktop-scene.theme-black .action-row.selected { background: rgba(var(--th-flip), .065); }
+.desktop-scene.theme-black .settings-sidebar nav button.active,
+.desktop-scene.theme-black .control-nav nav button.active {
+  color: var(--text);
+  background: rgba(var(--th-flip), .07);
+}
+.desktop-scene.theme-black .brand-plan {
+  background: rgba(var(--th-flip), .06);
+  border-color: rgba(var(--th-flip), .10);
+}
+.desktop-scene.theme-black .palette-lane { border-color: rgba(var(--th-flip), .10); }
+.desktop-scene.theme-black .palette-lane.active {
+  color: var(--text);
+  background: rgba(var(--th-paper-rgb), .9);
+  border-color: rgba(var(--th-flip), .14);
+}
+.desktop-scene.theme-black .palette-context-chip {
+  border-color: rgba(var(--th-flip), .12);
+  background: rgba(var(--th-paper-rgb), .5);
+}
+.desktop-scene.theme-black .palette-context-chip.enabled {
+  color: var(--text);
+  border-color: rgba(var(--th-flip), .18);
+}
+.desktop-scene.theme-black .palette-context-chip.enabled,
+.desktop-scene.theme-black .app-window .context-toggle.enabled,
+.desktop-scene.theme-black .app-window .context-chip {
+  background: var(--marketing-icon-tile) !important;
+  background-image: var(--marketing-icon-tile) !important;
+  box-shadow: var(--marketing-icon-shadow) !important;
+}
+.desktop-scene.theme-black .context-toggle {
+  border-color: rgba(var(--th-flip), .12);
+  background: rgba(var(--th-paper-rgb), .5);
+}
+.desktop-scene.theme-black .app-window .tool-chips span {
+  background: rgba(var(--th-flip), .05) !important;
+  background-image: none !important;
+  color: var(--muted) !important;
+  border-color: rgba(var(--th-flip), .08) !important;
+  box-shadow: none !important;
+}
+.desktop-scene.theme-black .alias-chip {
+  background: rgba(var(--th-flip), .05);
+  border-color: rgba(var(--th-flip), .07);
+}
+.desktop-scene.theme-black .app-window .hotkey-chip {
+  background: rgba(var(--th-flip), .055);
+  border-color: rgba(var(--th-flip), .09);
+}
+.desktop-scene.theme-black .trial-badge {
+  background: rgba(var(--th-flip), .06);
+  border-color: rgba(var(--th-flip), .08);
+}
+.desktop-scene.theme-black .info-card {
+  background: rgba(var(--th-flip), .04);
+  border-color: rgba(var(--th-flip), .08);
+}
+.desktop-scene.theme-black .api-key {
+  background: rgba(var(--th-flip), .05);
+  border-color: rgba(var(--th-flip), .08);
+}
+/* code stays a dark terminal in both themes */
+.desktop-scene.theme-black .code-card { background: #101013; border-color: var(--th-code-border); }
+.desktop-scene.theme-black .billing-card {
+  background: var(--th-card);
+  border-color: var(--th-card-border);
+}
+.desktop-scene.theme-black .source-box,
+.desktop-scene.theme-black .instruction-box,
+.desktop-scene.theme-black .output-box {
+  background: var(--panel-strong);
+  border-color: rgba(var(--th-flip), .10);
+}
+.desktop-scene.theme-black .app-window .instruction-box { background: var(--panel-strong) !important; }
+.desktop-scene.theme-black .browser-signin-card,
+.desktop-scene.theme-black .onboarding-mini-card,
+.desktop-scene.theme-black .onboarding-apps-card,
+.desktop-scene.theme-black .practice-card {
+  background: var(--th-card);
+  border-color: var(--th-card-border);
+  box-shadow: var(--th-card-shadow);
+  color: var(--text);
+}
+.desktop-scene.theme-black .browser-bar { border-color: rgba(var(--th-flip), .08); }
+.desktop-scene.theme-black .signin-providers button {
+  color: var(--text);
+  background: rgba(var(--th-flip), .04);
+  border-color: rgba(var(--th-flip), .10);
+}
+.desktop-scene.theme-black .onboarding-mini-search {
+  background: rgba(var(--th-flip), .04);
+  border-color: rgba(var(--th-flip), .08);
+}
+.desktop-scene.theme-black .onboarding-mini-chips span {
+  background: rgba(var(--th-flip), .045);
+  border-color: rgba(var(--th-flip), .08);
+}
+.desktop-scene.theme-black .practice-card textarea {
+  background: rgba(var(--th-flip), .035);
+  border-color: rgba(var(--th-flip), .10);
+}
+.desktop-scene.theme-black .onboarding-progress span { background: rgba(var(--th-flip), .16); }
+.desktop-scene.theme-black .onboarding-progress span.active,
+.desktop-scene.theme-black .onboarding-progress span.done { background: var(--text); }
+.desktop-scene.theme-black .palette-home .section-label span {
+  color: var(--faint);
+  background: rgba(var(--th-flip), .06);
+}
+
+/* --- 2.5 Popovers & menus --- */
+.desktop-scene.theme-black .action-panel,
+.desktop-scene.theme-black .premium-select-popover {
+  background: var(--th-pop);
+  border-color: var(--th-pop-border);
+  box-shadow: var(--th-pop-shadow);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  color: var(--text);
+}
+.desktop-scene.theme-black .premium-select-option.active { background: rgba(var(--th-flip), .055); color: var(--text); }
+.desktop-scene.theme-black .premium-select-option.selected { background: rgba(var(--th-flip), .08); color: var(--text); }
+.desktop-scene.theme-black .premium-select-trigger {
+  background: rgba(var(--th-flip), .035);
+  border-color: rgba(var(--th-flip), .10);
+  color: var(--text);
+}
+.desktop-scene.theme-black .premium-select-chevron { color: var(--faint) !important; }
+
+/* --- 2.6 Buttons, keys, segmented, toggles --- */
+.desktop-scene.theme-black .ghost-button {
+  background: rgba(var(--th-flip), .05);
+  border-color: rgba(var(--th-flip), .10);
+}
+.desktop-scene.theme-black .icon-button:hover { background: rgba(var(--th-flip), .06); color: var(--text); }
+.desktop-scene.theme-black .icon-button.bordered { background: var(--marketing-icon-tile); }
+.desktop-scene.theme-black .keys kbd {
+  background: var(--th-kbd-bg);
+  border-color: var(--th-kbd-border);
+  border-bottom-color: var(--th-kbd-bottom);
+  color: var(--th-kbd-ink);
+  box-shadow: 0 1px 2px rgba(0,0,0,.12);
+}
+.desktop-scene.theme-black .segmented { background: rgba(var(--th-flip), .055); }
+.desktop-scene.theme-black .segmented button.active {
+  background: var(--th-seg-active);
+  color: var(--text);
+  box-shadow: 0 1px 4px rgba(0,0,0,.18);
+}
+.desktop-scene.theme-black .toggle { background: var(--th-toggle-off); }
+.desktop-scene.theme-black .toggle span { box-shadow: 0 1px 3px rgba(0,0,0,.25); }
+
+/* --- Settings / dashboard structure -----------------------------------------
+   The base styles hard-code dark-theme hairlines (white-alpha borders) and a
+   10%-black wash over the whole shell. On White that made the sidebar divider
+   vanish (white line on white) and greyed the whole page. These shared rules
+   re-point every one of those surfaces at the tokens, so the divider, the
+   group cards and the row separators read identically in White and Black. */
+.desktop-scene.theme-black .settings-shell,
+.desktop-scene.theme-black .ai-shell {
+  background: transparent;
+}
+.desktop-scene.theme-black .settings-sidebar.control-nav {
+  border-right: 1px solid var(--line-strong);
+  background: var(--panel-softer);
+}
+.desktop-scene.theme-black .ai-sidebar,
+.desktop-scene.theme-black .ai-inspector {
+  background: var(--panel-softer);
+}
+.desktop-scene.theme-black .settings-group,
+.desktop-scene.theme-black .settings-list-card {
+  border-color: var(--line-strong);
+  background: var(--panel-softer);
+}
+.desktop-scene.theme-black .setting-row,
+.desktop-scene.theme-black .window-mode-row {
+  border-bottom-color: var(--line);
+}
+.desktop-scene.theme-black .settings-search {
+  background: var(--panel-soft);
+  border-color: var(--line);
+}
+.desktop-scene.theme-black .settings-search input { color: var(--text); }
+.desktop-scene.theme-black .settings-search input::placeholder { color: var(--faint); }
+.desktop-scene.theme-black .setting-title { color: var(--text); }
+.desktop-scene.theme-black .setting-row p,
+.desktop-scene.theme-black .window-mode-row p { color: var(--muted); }
+
+/* --- Hairlines, forms, primary CTA & remaining surfaces ----------------------
+   Final sweep (verified by a full rendered audit of every view in both
+   themes). The base styles paint many hairline borders with white-alpha
+   values — crisp on dark, invisible on White — and a few surfaces (primary
+   buttons, badges, the plan hero card, toast, hotkey tile, studio step
+   chips, usage meter) were either hard-coded dark or overridden only for
+   one theme. Everything below re-points them at the shared tokens. */
+.desktop-scene.theme-black .launcher-header,
+.desktop-scene.theme-black .command-row,
+.desktop-scene.theme-black .context-toggle,
+.desktop-scene.theme-black .instruction-box,
+.desktop-scene.theme-black .settings-command-row,
+.desktop-scene.theme-black .list-pane,
+.desktop-scene.theme-black .mcp-add-form,
+.desktop-scene.theme-black .onboarding-topbar { border-color: var(--line); }
+.desktop-scene.theme-black .command-row.selected { border-color: var(--line-strong); }
+.desktop-scene.theme-black .app-window .billing-card {
+  background: var(--panel-softer) !important;
+  border-color: var(--line-strong) !important;
+}
+/* form fields: classless inputs/textareas kept their white-alpha borders */
+.desktop-scene.theme-black input,
+.desktop-scene.theme-black textarea {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+.desktop-scene.theme-black input::placeholder,
+.desktop-scene.theme-black textarea::placeholder { color: var(--faint); }
+/* primary CTA: a bright pill on Black (via --th-cta-bg / --th-cta-ink) */
+.desktop-scene.theme-black .dark-button {
+  background: var(--th-cta-bg);
+  border-color: var(--th-cta-bg);
+  color: var(--th-cta-ink);
+}
+/* status pill ("Ready" / "Local mode"): base forces white text with !important */
+.desktop-scene.theme-black .trial-badge {
+  color: var(--text) !important;
+  background: rgba(var(--th-flip), .07) !important;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.desktop-scene.theme-black .trial-badge svg { color: var(--th-success); }
+/* toast + onboarding hotkey tile + studio step chips join the token system */
+.desktop-scene.theme-black .toast {
+  background: var(--th-pop);
+  border-color: var(--th-pop-border);
+  color: var(--text);
+  box-shadow: var(--th-pop-shadow);
+}
+.desktop-scene.theme-black .toast svg {
+  color: var(--th-success) !important;
+  stroke: currentColor !important;
+}
+.desktop-scene.theme-black .hotkey-tile {
+  background: var(--marketing-icon-tile);
+  border-color: var(--marketing-icon-border);
+  color: var(--th-tile-ink);
+  box-shadow: var(--marketing-icon-shadow);
+}
+.desktop-scene.theme-black .hotkey-tile span { color: var(--muted); }
+.desktop-scene.theme-black .hotkey-tile.recording { border-color: var(--line-strong); }
+.desktop-scene.theme-black .studio-lane-heading > span {
+  background: var(--marketing-icon-tile);
+  border-color: var(--marketing-icon-border);
+  color: var(--th-tile-ink);
+  box-shadow: var(--marketing-icon-shadow);
+}
+/* usage meter: track + fill follow the ink direction */
+.desktop-scene.theme-black .usage-meter { background: rgba(var(--th-flip), .12); }
+.desktop-scene.theme-black .app-window .usage-meter i {
+  background: linear-gradient(90deg, rgba(var(--th-flip), .5), rgba(var(--th-flip), .95)) !important;
+}
+/* connection status pill: the disconnected state kept a pale dark-theme
+   text colour that washed out on White (the connected stamp stays a solid
+   black pill in both themes, from the base !important rule). */
+.desktop-scene.theme-black .connection-pill {
+  background: rgba(var(--th-flip), .06);
+  border: 1px solid var(--line-strong);
+  color: var(--muted);
+}
+/* A late block in styles.css re-paints a handful of borders white with
+   !important (invisible on White, and its white caret vanishes while typing).
+   Beat those locks with equal force, still through the same tokens. */
+.desktop-scene.theme-black .app-window .launcher-header.command-console,
+.desktop-scene.theme-black .app-window .instruction-box,
+.desktop-scene.theme-black .app-window .instruction-box:focus-within,
+.desktop-scene.theme-black .app-window .context-toggle.enabled { border-color: var(--line-strong) !important; }
+.desktop-scene.theme-black .app-window input:focus,
+.desktop-scene.theme-black .app-window textarea:focus,
+.desktop-scene.theme-black .app-window select:focus {
+  border-color: var(--line-strong) !important;
+  caret-color: var(--text);
+}
+
+/* ============================================================================
+   3. PER-THEME EXCEPTIONS — things that are not "a colour value".
+      Keep this list tiny; everything else belongs in sections 1–2.
+   ============================================================================ */
+/* the page itself (CSS variables can't flow from the scene up to <body>) */
+html:has(.desktop-scene.theme-black),
+body:has(.desktop-scene.theme-black) { background: #000 !important; }
+/* (the primary button is no longer an exception: it flips via the
+   --th-cta-bg / --th-cta-ink tokens in the shared rules, section 2.) */
+
+/* ============================================================================
+   4. TRANSPARENT (default) — real glass. Uses the base styles plus this.
+   ============================================================================ */
+.desktop-scene.theme-transparent {
+  --panel: rgba(16, 16, 21, .46);
+  --panel-strong: rgba(22, 22, 29, .68);
+}
+.desktop-scene.theme-transparent:not(.embed-mode):not(.tauri-mode) {
+  background:
+    radial-gradient(circle at 14% 6%, rgba(195, 197, 210, .22), transparent 34%),
+    radial-gradient(circle at 86% 84%, rgba(118, 120, 136, .20), transparent 38%),
+    radial-gradient(circle at 64% 22%, rgba(255, 255, 255, .075), transparent 26%),
+    linear-gradient(150deg, #101017 0%, #181820 44%, #0a0a0f 100%);
+}
+.desktop-scene.theme-transparent .app-window {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.115), rgba(255,255,255,.035) 36%, rgba(255,255,255,.02) 72%),
+    var(--panel);
+  -webkit-backdrop-filter: blur(36px) saturate(175%);
+  backdrop-filter: blur(36px) saturate(175%);
+  border-color: rgba(255,255,255,.22);
+  box-shadow:
+    0 36px 110px rgba(0,0,0,.55),
+    0 4px 26px rgba(0,0,0,.38),
+    inset 0 1px 0 rgba(255,255,255,.22),
+    inset 0 0 0 1px rgba(255,255,255,.05);
+}
+html:has(.desktop-scene.tauri-mode.theme-transparent),
+body:has(.desktop-scene.tauri-mode.theme-transparent) { background: transparent !important; }
+.desktop-scene.tauri-mode.theme-transparent { background: transparent; }

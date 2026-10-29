@@ -1,0 +1,299 @@
+/* ============================================================================
+   Zerthik inner screens — Studio, Create Shortcut, MCP, Settings detail.
+   ----------------------------------------------------------------------------
+   Design rules for everything "inside" the command card. Colours come ONLY
+   from the shared token variables (--panel*, --line*, --text/--muted/--faint
+   and the --th-* theme tokens with fallbacks), so White, Black and the
+   default Transparent glass all stay correct without per-theme code.
+   Layout/spacing lives here; themes.css remains the colour authority.
+   ============================================================================ */
+
+/* ---------- Studio lanes: one calm, card-based rhythm ---------- */
+.desktop-scene .studio-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.desktop-scene .studio-lane {
+  padding: 4px 2px 2px;
+}
+.desktop-scene .studio-lane-heading {
+  margin-bottom: 12px;
+}
+.desktop-scene .studio-lane-heading h3 {
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+.desktop-scene .source-box,
+.desktop-scene .output-box {
+  border-radius: 14px;
+}
+.desktop-scene .source-box {
+  min-height: 104px;
+  padding: 14px 16px;
+  line-height: 1.55;
+}
+.desktop-scene .output-box {
+  min-height: 132px;
+  padding: 6px;
+}
+.desktop-scene .output-editor {
+  padding: 10px 12px;
+  line-height: 1.6;
+}
+.desktop-scene .instruction-box {
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+.desktop-scene .destination-card {
+  border: 1px solid var(--line);
+  background: var(--panel-softer);
+  border-radius: 14px;
+  padding: 13px 16px;
+}
+.desktop-scene .studio-generate {
+  width: 100%;
+  justify-content: center;
+  min-height: 42px;
+  border-radius: 12px;
+  font-weight: 650;
+}
+.desktop-scene .lane-note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--faint);
+  font-size: 12px;
+}
+
+/* ---------- MCP context panel (Studio) ---------- */
+.desktop-scene .mcp-context-panel {
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel-softer);
+  border-radius: 14px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.desktop-scene .mcp-context-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+.desktop-scene .mcp-context-row .premium-select {
+  flex: 1 1 150px;
+}
+.desktop-scene .mcp-fetch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 10px;
+  padding: 0 16px;
+  min-height: 36px;
+}
+.desktop-scene .mcp-context-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: var(--panel-softer);
+}
+.desktop-scene .mcp-context-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+}
+.desktop-scene .mcp-context-head .icon-button {
+  margin-left: auto;
+}
+.desktop-scene .mcp-context-card pre {
+  margin: 8px 0 2px;
+  max-height: 150px;
+  overflow: auto;
+  font-family: ui-monospace, 'Cascadia Code', Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--muted);
+}
+
+/* ---------- MCP endpoint editor ---------- */
+.desktop-scene .mcp-endpoint {
+  border: 1px solid var(--line);
+  background: var(--panel-softer);
+  border-radius: 14px;
+  padding: 14px;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.desktop-scene .mcp-endpoint-fields {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.desktop-scene .mcp-endpoint label,
+.desktop-scene .mcp-settings-detail label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 620;
+  color: var(--muted);
+  flex: 1 1 160px;
+}
+.desktop-scene .mcp-endpoint label.wide { flex-basis: 100%; }
+.desktop-scene .mcp-endpoint input {
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  padding: 9px 12px;
+  background: var(--panel-softer);
+  font-size: 13px;
+  font-weight: 500;
+}
+.desktop-scene .mcp-endpoint-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.desktop-scene .mcp-endpoint-actions .premium-select { flex: 1 1 180px; }
+.desktop-scene .mcp-endpoint-actions .dark-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 10px;
+  padding: 0 18px;
+  min-height: 38px;
+}
+.desktop-scene .mcp-apikey { flex-basis: 100%; }
+
+/* ---------- MCP tools, runner, results ---------- */
+.desktop-scene .mcp-tools { margin-top: 14px; }
+.desktop-scene .mcp-status-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.desktop-scene .mcp-status-line small { color: var(--faint); }
+.desktop-scene .mcp-tool-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+.desktop-scene .mcp-tool-row {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 11px 13px;
+  background: var(--panel-softer);
+}
+.desktop-scene .mcp-tool-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.desktop-scene .mcp-tool-name {
+  font-weight: 650;
+  font-size: 13.5px;
+  color: var(--text);
+}
+.desktop-scene .mcp-tool-desc {
+  margin: 5px 0 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.desktop-scene .mcp-run-toggle { margin-left: auto; }
+.desktop-scene .level-pill {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.desktop-scene .level-pill.read { color: var(--th-success, #6ee7b7); }
+.desktop-scene .level-pill.write { color: var(--text); }
+.desktop-scene .level-pill.destructive { color: var(--th-danger, #fb7185); }
+.desktop-scene .mcp-runner {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.desktop-scene .mcp-args {
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--panel-softer);
+  padding: 10px 12px;
+  font-family: ui-monospace, 'Cascadia Code', Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.55;
+  resize: vertical;
+  width: 100%;
+  box-sizing: border-box;
+}
+.desktop-scene .mcp-runner-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.desktop-scene .mcp-runner-actions .dark-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 10px;
+  padding: 8px 16px;
+}
+.desktop-scene .mcp-runner-actions small { color: var(--faint); }
+.desktop-scene .mcp-result {
+  margin: 2px 0 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel-soft);
+  padding: 10px 12px;
+  max-height: 220px;
+  overflow: auto;
+  font-family: ui-monospace, 'Cascadia Code', Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--text);
+}
+.desktop-scene .mcp-error {
+  margin: 6px 0 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--th-danger, #fb7185);
+}
+.desktop-scene .mcp-settings-detail {
+  border-top: 1px solid var(--line);
+  margin: 4px 14px 14px;
+  padding: 2px 2px 6px;
+}
+.desktop-scene .mcp-approval-card {
+  box-shadow: inset 3px 0 0 var(--th-danger, #fb7185);
+}
+
+/* ---------- Create Shortcut rhythm ---------- */
+.desktop-scene .recipe-builder { gap: 22px; }
+.desktop-scene .recipe-preview-card {
+  border: 1px solid var(--line);
+  background: var(--panel-softer);
+  border-radius: 16px;
+}
+
+/* ---------- Settings detail polish ---------- */
+.desktop-scene .settings-command-row { cursor: pointer; }
+.desktop-scene .integration-detail { margin-top: 14px; }

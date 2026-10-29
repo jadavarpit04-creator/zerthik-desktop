@@ -1,0 +1,1263 @@
+/* Focused Zerthik command-card layout.
+   Familiar search-first structure with small Zerthik-specific differences:
+   centered brand strip, removable context pills, and use-case filters. */
+
+.app-window.launcher {
+  width: min(880px, calc(100vw - 32px));
+  height: min(624px, calc(100vh - 122px));
+  min-height: 540px;
+  border-radius: 22px;
+}
+
+.app-window.settings {
+  width: min(1060px, calc(100vw - 32px));
+  height: min(700px, calc(100vh - 122px));
+  min-height: 560px;
+  border-radius: 22px;
+}
+
+.app-window.onboarding {
+  width: min(1020px, calc(100vw - 32px));
+  height: min(660px, calc(100vh - 122px));
+  min-height: 540px;
+  border-radius: 22px;
+}
+
+.app-window.compact-window {
+  width: min(760px, calc(100vw - 32px));
+  height: auto;
+  min-height: 0;
+  border-radius: 999px;
+}
+
+.z-logo,
+.app-window .z-logo {
+  padding: 0;
+  border: 0 !important;
+  border-color: transparent !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.z-logo.small {
+  padding: 0;
+}
+
+/* Logo is only the white mark on transparency — no tile behind it anywhere. */
+.app-window .z-logo,
+.desktop-topbar .z-logo,
+.brand-lockup .z-logo,
+.account-logo .z-logo,
+.signin-body > .z-logo,
+.onboarding-logo .z-logo,
+.onboarding-brand .z-logo,
+.footer-menu-button .z-logo,
+.panel-context .z-logo,
+.search-leading .z-logo {
+  padding: 0 !important;
+  border: 0 !important;
+  border-color: transparent !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.z-logo img {
+  background: transparent !important;
+}
+
+/* No decorative status dots anywhere in the desktop UI. */
+.pulse-dot,
+.topbar-trigger i {
+  display: none !important;
+}
+
+.z-logo img {
+  object-position: center;
+}
+
+/* Launcher: no permanent rail; one clear column. */
+
+.launcher-shell.palette-shell {
+  display: flex;
+  flex-direction: column;
+  grid-template-columns: none;
+}
+
+.palette-workspace {
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.brand-strip {
+  min-height: 54px;
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  padding: 8px 14px 3px;
+}
+
+.brand-side {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  color: rgba(255, 255, 255, .52);
+  font-size: 11px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.brand-hotkey {
+  gap: 6px;
+}
+
+.brand-plan-wrap {
+  justify-content: flex-end;
+}
+
+.brand-plan {
+  padding: 5px 9px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 999px;
+  background: rgba(255,255,255,.055);
+  color: rgba(255,255,255,.78);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.brand-lockup {
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 780;
+  letter-spacing: -.01em;
+  cursor: pointer;
+}
+
+.brand-lockup .z-logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 0;
+  padding: 0;
+}
+
+.launcher-header.command-console {
+  min-height: 58px;
+  margin: 2px 0 0;
+  padding: 0 14px;
+  border: 0;
+  border-bottom: 1px solid rgba(255,255,255,.085);
+  border-radius: 0;
+  background: rgba(255,255,255,.018);
+  box-shadow: none;
+}
+
+.search-leading {
+  width: 28px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+}
+
+.command-console .search-input {
+  font-size: 1.22em;
+}
+
+.palette-workspace .launcher-body {
+  padding: 0;
+}
+
+.launcher-footer.execution-dock {
+  min-height: 42px;
+  margin: 0;
+  padding: 0 10px;
+  border: 0;
+  border-top: 1px solid rgba(255,255,255,.085);
+  border-radius: 0;
+  background: rgba(0,0,0,.18);
+  box-shadow: none;
+}
+
+.dock-status {
+  margin-left: 9px;
+  font-size: 11px;
+}
+
+.compact-window .launcher-shell.palette-shell {
+  display: block;
+}
+
+.compact-window .launcher-header.command-console {
+  min-height: 62px;
+  margin: 0;
+  border-bottom: 0;
+  border-radius: 999px;
+  background: transparent;
+}
+
+/* Root: Search results stay in one easy-to-scan list. */
+
+.palette-home {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.palette-context-strip {
+  min-height: 38px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 10px 3px;
+  padding: 7px 9px;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 12px;
+  background: rgba(255,255,255,.045);
+}
+
+.palette-context-chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.palette-context-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 7px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 999px;
+  background: rgba(255,255,255,.038);
+  color: rgba(255,255,255,.62);
+  font-size: 11.5px;
+  font-weight: 650;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.palette-context-chip:hover {
+  color: #ffffff;
+  background: rgba(255,255,255,.075);
+}
+
+.palette-context-chip.enabled {
+  border-color: rgba(255,255,255,.18);
+  background: rgba(255,255,255,.10);
+  color: #ffffff;
+}
+
+.palette-context-note {
+  color: rgba(255,255,255,.48);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.palette-lanes {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px 5px;
+  overflow-x: auto;
+}
+
+.palette-lane {
+  flex: 0 0 auto;
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255,255,255,.62);
+  font-size: 12px;
+  font-weight: 680;
+  cursor: pointer;
+}
+
+.palette-lane span {
+  margin-left: 5px;
+  opacity: .58;
+  font-size: 10.5px;
+}
+
+.palette-lane:hover {
+  color: #ffffff;
+  background: rgba(255,255,255,.06);
+}
+
+.palette-lane.active {
+  border-color: #ffffff;
+  background: #f4f4f5;
+  color: #050505;
+}
+
+.palette-count {
+  flex: 0 0 auto;
+  color: rgba(255,255,255,.44);
+  font-size: 11px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.palette-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 3px 8px 14px;
+}
+
+.palette-home .command-row {
+  position: relative;
+  min-height: 42px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+}
+
+.palette-home .command-row.selected {
+  border-color: rgba(255,255,255,.15);
+}
+
+/* Transform: familiar list + one vertical workspace. */
+
+.split-view.studio-view {
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: 0;
+}
+
+.list-pane.studio-switcher {
+  padding: 8px;
+  border: 0;
+  border-right: 1px solid rgba(255,255,255,.085);
+  border-radius: 0;
+  background: rgba(255,255,255,.012);
+}
+
+.studio-switcher .command-row {
+  min-height: 41px;
+  margin-bottom: 0;
+  border-color: transparent;
+  border-radius: 9px;
+  background: transparent;
+}
+
+.detail-pane.studio-pane {
+  display: block;
+  overflow-y: auto;
+  padding: 19px 23px 25px;
+}
+
+.workspace-header.studio-header {
+  margin-bottom: 15px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.studio-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  overflow: visible;
+}
+
+.studio-lane {
+  overflow: visible;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.studio-lane-heading {
+  align-items: center;
+  margin-bottom: 9px;
+}
+
+.studio-lane-heading > span {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+}
+
+.studio-lane-heading p {
+  display: none;
+}
+
+.context-editor.studio-context-editor {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 12px;
+}
+
+.studio-context-editor .context-toggle {
+  min-height: 32px;
+  border-radius: 999px;
+}
+
+.source-box.studio-source-box {
+  flex: none;
+  min-height: 92px;
+  margin-bottom: 0;
+}
+
+.instruction-box.studio-instruction-box {
+  min-height: 46px;
+  align-items: center;
+  padding: 7px 10px;
+}
+
+.studio-instruction-box textarea {
+  height: 38px;
+}
+
+.model-route-card,
+.destination-card {
+  display: none;
+}
+
+.studio-generate {
+  width: auto;
+  min-width: 154px;
+  align-self: flex-start;
+  margin-top: 12px;
+}
+
+.output-box.studio-output-box {
+  flex: none;
+  min-height: 116px;
+}
+
+.studio-output-box .output-editor {
+  min-height: 104px;
+}
+
+.workspace-actions.studio-actions {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.studio-actions .dark-button {
+  grid-column: auto;
+}
+
+/* Shortcut Library: simple rows + details. */
+
+.split-view.library-view {
+  grid-template-columns: minmax(260px, 38%) minmax(0, 1fr);
+  gap: 0;
+}
+
+.list-pane.library-board {
+  display: block;
+  padding: 8px;
+  border: 0;
+  border-right: 1px solid rgba(255,255,255,.085);
+  border-radius: 0;
+  background: rgba(255,255,255,.012);
+}
+
+.library-board .command-row {
+  min-height: 41px;
+  flex-wrap: nowrap;
+  padding: 6px 10px;
+  border-color: transparent;
+  border-radius: 9px;
+  background: transparent;
+}
+
+.library-board .command-row.selected {
+  border-color: rgba(255,255,255,.15);
+}
+
+.library-board .row-title {
+  flex: 0 1 auto;
+  white-space: nowrap;
+}
+
+.library-board .row-source {
+  margin-left: 0;
+}
+
+.library-board .command-row .alias-chip,
+.library-board .command-row .keys,
+.library-board .command-row .row-type {
+  display: none;
+}
+
+.detail-pane.library-inspector {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+/* MCP: one clear server list. */
+
+.list-scroll.mcp-board {
+  display: block;
+  padding: 8px 8px 16px;
+}
+
+.mcp-board .mcp-note {
+  margin: 4px 10px 12px;
+}
+
+.mcp-board .store-row {
+  min-height: 66px;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding: 9px 10px;
+  border-color: transparent;
+  border-radius: 11px;
+  background: transparent;
+}
+
+.mcp-board .store-row.selected {
+  border-color: rgba(255,255,255,.13);
+}
+
+.mcp-board .rich-copy small {
+  display: block;
+  white-space: nowrap;
+  -webkit-line-clamp: unset;
+}
+
+.mcp-board .store-meta {
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+  margin-left: 0;
+  white-space: nowrap;
+}
+
+.mcp-board .integration-detail {
+  margin: 14px 2px 0;
+}
+
+.mcp-board .mcp-approval-card,
+.mcp-board .mcp-log-card {
+  margin: 12px 10px 0;
+}
+
+/* Create Shortcut: one centered form. */
+
+.shortcut-form.recipe-form {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 27px 34px 30px;
+}
+
+.recipe-builder-header {
+  margin-bottom: 23px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  text-align: center;
+}
+
+.recipe-builder-header h2 {
+  font-size: 22px;
+  letter-spacing: -.025em;
+}
+
+.recipe-builder-header p {
+  margin: 0 auto;
+}
+
+.recipe-builder {
+  display: block;
+}
+
+.recipe-fields {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.recipe-preview-card {
+  display: none;
+}
+
+.recipe-fields .form-row {
+  grid-template-columns: 160px minmax(0, 1fr);
+}
+
+/* Popovers return to the footer corners. */
+
+.app-menu {
+  top: auto;
+  bottom: 52px;
+  left: 10px;
+  width: 290px;
+  max-height: min(520px, calc(100% - 120px));
+  border-radius: 14px;
+}
+
+.action-panel {
+  top: auto;
+  right: 10px;
+  bottom: 52px;
+  width: min(392px, calc(100% - 20px));
+  max-height: calc(100% - 126px);
+  border-radius: 16px;
+}
+
+/* Dashboard: familiar left navigation. */
+
+.settings-shell.control-shell {
+  grid-template-columns: 282px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+}
+
+.settings-sidebar.control-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  overflow-y: auto;
+  padding: 16px 14px;
+  border-right: 1px solid rgba(255,255,255,.085);
+  border-bottom: 0;
+  background: rgba(255,255,255,.025);
+}
+
+.control-nav .window-controls {
+  grid-column: auto;
+  grid-row: auto;
+  margin: 0 2px 16px;
+}
+
+.control-nav .settings-search {
+  grid-column: auto;
+  grid-row: auto;
+  margin-bottom: 16px;
+}
+
+.control-nav .account-row {
+  grid-column: auto;
+  grid-row: auto;
+  padding: 4px 5px 16px;
+}
+
+.control-nav nav {
+  grid-column: auto;
+  grid-row: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: visible;
+  padding: 0;
+}
+
+.control-nav nav button {
+  width: 100%;
+  flex: none;
+  min-height: 37px;
+  justify-content: flex-start;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+}
+
+.control-nav nav button.active {
+  border-color: transparent;
+  background: rgba(255,255,255,.09);
+}
+
+.control-nav .back-to-app {
+  grid-column: auto;
+  grid-row: auto;
+  justify-self: auto;
+  margin-top: auto;
+}
+
+.settings-topbar.control-topbar {
+  min-height: 58px;
+  padding: 0 16px;
+}
+
+.control-topbar > span:nth-child(2) {
+  font-size: 14px;
+  letter-spacing: 0;
+}
+
+.control-content .settings-scroll {
+  width: auto;
+  margin: 0;
+  padding: 10px 22px 28px;
+}
+
+.control-shell .settings-list-card {
+  display: block;
+}
+
+/* Onboarding: one centered stage again. */
+
+.onboarding-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+.onboarding-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.onboarding-body {
+  padding: clamp(24px, 5vh, 48px) clamp(28px, 6vw, 64px);
+}
+
+.onboarding-logo {
+  display: grid;
+  place-items: center;
+}
+
+.onboarding-logo .z-logo {
+  width: 104px;
+  height: 104px;
+  margin-inline: auto;
+  border-radius: 0;
+  padding: 0;
+}
+
+.onboarding-center {
+  align-items: center;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .brand-hotkey,
+  .palette-context-note,
+  .dock-status {
+    display: none;
+  }
+
+  .split-view.studio-view {
+    grid-template-columns: 214px minmax(0, 1fr);
+  }
+
+  .split-view.library-view {
+    grid-template-columns: 224px minmax(0, 1fr);
+  }
+
+  .settings-shell.control-shell {
+    grid-template-columns: 232px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .brand-plan {
+    display: none;
+  }
+
+  .recipe-fields .form-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 7px;
+  }
+
+  .recipe-fields .form-row label {
+    text-align: left;
+  }
+}
+
+/* MCP / store logos: always fully visible inside a square tile — never cropped. */
+.app-window .store-avatar.brand-avatar {
+  padding: 5px;
+}
+
+.app-window .store-brand-logo {
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+}
+
+.app-window .store-brand-logo img,
+.app-window .store-brand-logo svg,
+.app-window .header-brand-logo img,
+.app-window .inline-brand-logo img,
+.app-window .context-brand-logo img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain !important;
+  object-position: center;
+}
+
+/* Fallback monogram for companies with no known logo. */
+.brand-logo-monogram {
+  display: grid !important;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: .02em;
+  line-height: 1;
+}
+
+.store-brand-logo.brand-logo-monogram { font-size: 13px; }
+.inline-brand-logo.brand-logo-monogram,
+.header-brand-logo.brand-logo-monogram { font-size: 9px; }
+
+/* Add MCP Server form */
+.mcp-add-form {
+  margin: 10px 2px 4px;
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  background: rgba(255,255,255,.035);
+}
+
+.mcp-add-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.mcp-add-head .store-avatar { flex: 0 0 auto; }
+.mcp-add-head strong { display: block; color: #ffffff; font-size: 13.5px; }
+.mcp-add-head small { display: block; color: rgba(255,255,255,.58); font-size: 11.5px; margin-top: 2px; line-height: 1.45; }
+
+.mcp-add-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.mcp-add-grid label {
+  display: grid;
+  gap: 6px;
+  color: rgba(255,255,255,.62);
+  font-size: 11.5px;
+  font-weight: 650;
+}
+
+.mcp-add-grid label.wide { grid-column: 1 / -1; }
+
+.mcp-add-grid input,
+.mcp-add-grid select {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 10px;
+  background: rgba(255,255,255,.045);
+  color: #ffffff;
+  padding: 9px 10px;
+  outline: 0;
+  font-size: 13px;
+}
+
+.mcp-add-grid select option { background: #17151f; }
+
+.mcp-add-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+@media (max-width: 620px) {
+  .mcp-add-grid { grid-template-columns: 1fr; }
+}
+
+/* Premium custom dropdowns (replaces every native <select> in the desktop app). */
+.premium-select {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.premium-select-trigger {
+  width: 100%;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 11px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.028));
+  color: #ffffff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
+  transition: border-color .15s ease, background .15s ease, box-shadow .15s ease;
+}
+
+.premium-select-trigger:hover {
+  border-color: rgba(255,255,255,.24);
+  background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.04));
+}
+
+.premium-select.open .premium-select-trigger {
+  border-color: rgba(255,255,255,.34);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.09), 0 0 0 3px rgba(255,255,255,.07);
+}
+
+.premium-select-trigger:focus-visible {
+  outline: 2px solid rgba(255,255,255,.55);
+  outline-offset: 2px;
+}
+
+.premium-select-value {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.premium-select-chevron {
+  flex: 0 0 auto;
+  color: rgba(255,255,255,.62);
+  transition: transform .16s ease;
+}
+
+.premium-select.open .premium-select-chevron { transform: rotate(180deg); }
+
+.premium-select-popover {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 80;
+  max-height: 264px;
+  overflow-y: auto;
+  padding: 5px;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 13px;
+  background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.02)), rgba(15,15,19,.97);
+  box-shadow: 0 22px 55px rgba(0,0,0,.58), inset 0 1px 0 rgba(255,255,255,.11);
+  backdrop-filter: blur(20px) saturate(145%);
+  transform-origin: top center;
+  animation: premium-select-pop .14s ease;
+}
+
+.premium-select.drop-up .premium-select-popover {
+  top: auto;
+  bottom: calc(100% + 6px);
+  transform-origin: bottom center;
+}
+
+@keyframes premium-select-pop {
+  from { opacity: 0; transform: translateY(-3px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.premium-select-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 9px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: rgba(255,255,255,.72);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 560;
+  text-align: left;
+  cursor: pointer;
+}
+
+.premium-select-option.active {
+  background: rgba(255,255,255,.085);
+  color: #ffffff;
+}
+
+.premium-select-option.selected {
+  background: rgba(255,255,255,.11);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.premium-select-check {
+  width: 15px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+}
+
+.premium-select-option-icon {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  line-height: 0;
+}
+
+/* Header variant: quiet, transparent trigger like the old header picker. */
+.premium-select-header { width: auto; }
+
+.premium-select-header .premium-select-trigger {
+  min-height: 32px;
+  padding: 5px 7px;
+  border-color: transparent;
+  border-radius: 9px;
+  background: transparent;
+  box-shadow: none;
+  font-size: .92em;
+  font-weight: 620;
+  color: #e9e7f2;
+}
+
+.premium-select-header .premium-select-trigger:hover,
+.premium-select-header.open .premium-select-trigger {
+  border-color: rgba(255,255,255,.12);
+  background: rgba(255,255,255,.055);
+  box-shadow: none;
+}
+
+.premium-select-header .premium-select-popover {
+  left: auto;
+  right: 0;
+  width: 205px;
+}
+
+/* ================================================================
+   Zerthik signature pass: same familiar layout, distinct identity.
+   Floating capsule Search, card rows, floating dock footer.
+   ================================================================ */
+
+/* Window: rounder shell + soft halo behind the brand strip. */
+.app-window.launcher { border-radius: 26px; }
+
+.launcher-shell.palette-shell {
+  background: radial-gradient(560px 190px at 50% -70px, rgba(255,255,255,.10), rgba(255,255,255,0) 70%);
+}
+
+/* Search becomes a floating capsule instead of a full-width bar. */
+.app-window.launcher:not(.compact-window) .launcher-header.command-console {
+  min-height: 56px;
+  margin: 2px 14px 0;
+  padding: 0 14px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.028));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.09), 0 10px 26px rgba(0,0,0,.18);
+}
+
+.app-window.launcher:not(.compact-window) .launcher-header.command-console:focus-within {
+  border-color: rgba(255,255,255,.26);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.11), 0 0 0 3px rgba(255,255,255,.06), 0 10px 26px rgba(0,0,0,.18);
+}
+
+/* Root context strip becomes a dock with a tracked micro label. */
+.palette-context-strip {
+  margin: 10px 14px 3px;
+  border-radius: 18px;
+  border-color: rgba(255,255,255,.09);
+  background: rgba(0,0,0,.24);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 0 1px rgba(0,0,0,.12);
+}
+
+.palette-context-strip .context-ready {
+  font-size: 10.5px;
+  font-weight: 760;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.58);
+}
+
+/* Category lanes read as proper chips even when inactive. */
+.palette-lane {
+  border-color: rgba(255,255,255,.08);
+  background: rgba(255,255,255,.032);
+}
+
+.palette-lane.active {
+  border-color: #ffffff;
+  background: #f4f4f5;
+  color: #050505;
+}
+
+/* Section headers: tracked label + count pill + fading rule. */
+.palette-home .section-label {
+  padding: 12px 12px 7px;
+  font-size: 10.5px;
+  font-weight: 740;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.52);
+}
+
+.palette-home .section-label span {
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.07);
+  color: rgba(255,255,255,.62);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+
+.palette-home .section-label::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,.10), rgba(255,255,255,0));
+}
+
+/* Rows become soft cards; the selected card lifts and its icon tile inverts. */
+.palette-list { padding: 2px 10px 14px; }
+
+.palette-home .command-row {
+  min-height: 46px;
+  margin: 2px 2px;
+  padding: 7px 11px;
+  border: 1px solid rgba(255,255,255,.05);
+  border-radius: 13px;
+  background: rgba(255,255,255,.024);
+  transition: background .14s ease, border-color .14s ease, box-shadow .14s ease;
+}
+
+.palette-home .command-row:hover {
+  background: rgba(255,255,255,.055);
+  border-color: rgba(255,255,255,.09);
+}
+
+.palette-home .command-row.selected {
+  border-color: rgba(255,255,255,.18);
+  background: linear-gradient(180deg, rgba(255,255,255,.115), rgba(255,255,255,.068));
+  box-shadow: 0 8px 22px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.10);
+}
+
+/* Icon tiles stay white-on-black per the monochrome icon system;
+   the selected card's tile only gets a brighter rim + lift. */
+.palette-home .command-row.selected .row-icon {
+  border-color: rgba(255,255,255,.32) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 6px 14px rgba(0,0,0,.42) !important;
+}
+
+/* Footer becomes a floating capsule dock; menus lift above it. */
+.launcher-footer.execution-dock {
+  min-height: 44px;
+  margin: 6px 12px 12px;
+  padding: 0 8px 0 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015)), rgba(0,0,0,.30);
+  box-shadow: 0 12px 28px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.footer-action { border-radius: 999px; padding: 6px 9px; }
+
+.app-menu { bottom: 68px; left: 12px; border-radius: 16px; }
+.action-panel { bottom: 68px; right: 12px; }
+
+/* Softer key caps to match the capsule language. */
+.keys kbd {
+  border-radius: 7px;
+  background: rgba(255,255,255,.07);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
+}
+
+/* Embed mode (?embed=1): bare floating window for the marketing live demo —
+   no simulated desktop chrome, transparent surroundings. */
+html:has(.desktop-scene.embed-mode),
+body:has(.desktop-scene.embed-mode) {
+  background: transparent !important;
+}
+
+.desktop-scene.embed-mode {
+  background: transparent;
+  padding: 18px;
+}
+
+.desktop-scene.embed-mode::before,
+.desktop-scene.embed-mode .desktop-glow,
+.desktop-scene.embed-mode .desktop-topbar,
+.desktop-scene.embed-mode .desktop-hint {
+  display: none;
+}
+
+.desktop-scene.embed-mode .app-window {
+  width: calc(100vw - 36px);
+  height: calc(100vh - 36px);
+  min-height: 0;
+}
+
+.desktop-scene.embed-mode .app-window.compact-window { height: auto; }
+
+/* Embed (live demo): no hotkey label on the left, no plan pill on the
+   right — only the centered brand. visibility keeps the 3-column
+   strip layout intact so the lockup stays perfectly centered. */
+.desktop-scene.embed-mode .brand-hotkey,
+.desktop-scene.embed-mode .brand-plan-wrap {
+  visibility: hidden;
+}
+
+/* Tauri shell: the real native window — the app fills it edge to edge,
+   no simulated desktop around it. Brand strip stays fully visible. */
+.desktop-scene.tauri-mode {
+  background: #0a0a0d;
+  padding: 0;
+}
+
+.desktop-scene.tauri-mode::before,
+.desktop-scene.tauri-mode .desktop-glow,
+.desktop-scene.tauri-mode .desktop-topbar,
+.desktop-scene.tauri-mode .desktop-hint {
+  display: none;
+}
+
+.desktop-scene.tauri-mode .app-window {
+  width: 100vw;
+  height: 100vh;
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+.desktop-scene.tauri-mode .app-window.compact-window { height: auto; }
+
+html:has(.desktop-scene.tauri-mode),
+body:has(.desktop-scene.tauri-mode) {
+  background: #0a0a0d !important;
+}
+
+.settings-empty-note {
+  padding: 12px 14px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
